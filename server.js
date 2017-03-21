@@ -9,10 +9,10 @@ var app = express();
 var path = require('path');
 // Configuration
   //mailconfiguration
-var nodemailer = require('nodemailer');
-var config = require("./mailconfig.js");
-var transport = require('nodemailer-smtp-transport');
-var Transporter = nodemailer.createTransport(transport(config));
+// var nodemailer = require('nodemailer');
+// var config = require("./mailconfig.js");
+// var transport = require('nodemailer-smtp-transport');
+// var Transporter = nodemailer.createTransport(transport(config));
   //body
 var bodyParser = require("body-parser");
 app.configure(function(){
@@ -48,15 +48,16 @@ app.post('/sendmail',function(req,res,next){
     text : req.body.message
   }
   console.log(mail);
-  Transporter.sendMail(mail, function(error, info){
-    if(error){
-      console.log(error);
-      res.send({err : true , msg : error})
-    }else{
-      console.log('Message sent: ' + info.response);
-      res.send({err : false});
-    }
-  });
+  res.send({err:true, msg : "Please try again later"});
+  // Transporter.sendMail(mail, function(error, info){
+  //   if(error){
+  //     console.log(error);
+  //     res.send({err : true , msg : error})
+  //   }else{
+  //     console.log('Message sent: ' + info.response);
+  //     res.send({err : false});
+  //   }
+  // });
 });
 //If the server does not get any route , it will redirect to 404 page.
 app.get('*',function(req,res,next){
@@ -69,11 +70,11 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 app.listen(server_port, server_ip_address, function(){
   console.log("Listening on " + server_ip_address + ", server_port " + server_port);
   //Verify that mailer is working properly
-  Transporter.verify(function(error, success) {
-     if (error) {
-          console.log(error);
-     } else {
-          console.log('Mailer is ready to send messages');
-     }
-  });
+  // Transporter.verify(function(error, success) {
+  //    if (error) {
+  //         console.log(error);
+  //    } else {
+  //         console.log('Mailer is ready to send messages');
+  //    }
+  // });
 });
