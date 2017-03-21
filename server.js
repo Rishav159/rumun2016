@@ -22,13 +22,13 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
   });
 
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler());
-});
+// app.configure('development', function(){
+//   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+// });
+//
+// app.configure('production', function(){
+//   app.use(express.errorHandler());
+// });
 
 // Routes
 
@@ -62,8 +62,8 @@ app.post('/sendmail',function(req,res,next){
 app.get('*',function(req,res,next){
   res.redirect('/404.html')
 });
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3070
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+var server_port = 3070
+var server_ip_address = '127.0.0.1'
 
 
 app.listen(server_port, server_ip_address, function(){
