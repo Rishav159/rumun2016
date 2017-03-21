@@ -1,21 +1,13 @@
 
-/**
- * Module dependencies.
- */
 
-var express = require('express');
-var app = module.exports = express.createServer();
-// Configuration
+ var path = require('path');
+ var express = require('express');
 
-  app.use(express.bodyParser());
+ var app = express();
 
-  app.use(express.static(__dirname + '/public'));
+ var staticPath = path.join(__dirname, '/public');
+ app.use(express.static(staticPath));
 
-
-// Routes
-
-
-
-app.listen(3070, function(){
-  console.log("listening on 3070");
-});
+ app.listen(3000, function() {
+   console.log('listening');
+ });
